@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết vé – <%= item.eventName %></title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 32px 16px; }
+
+    .ticket {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    }
+
+    /* Header vé */
+    .ticket-header {
+      background: #15803d;
+      color: #fff;
+      padding: 24px 28px;
+    }
+    .ticket-header .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.75; }
+    .ticket-header .event-name { font-size: 22px; font-weight: 800; margin: 4px 0 12px; }
+    .ticket-header .meta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 3px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Đường cắt vé */
+    .tear {
+      border-top: 2px dashed #bbf7d0;
+      margin: 0 20px;
+    }
+
+    /* Thân vé */
+    .ticket-body { padding: 20px 28px; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; margin-bottom: 16px; }
+    .info-item .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: .5px; margin-bottom: 3px; }
+    .info-item .val { font-size: 15px; color: #111827; font-weight: 600; }
+
+    .price-row {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .price-row .lbl { font-size: 13px; color: #6b7280; }
+    .price-row .val { font-size: 20px; font-weight: 800; color: #15803d; }
+    .price-row .original { font-size: 13px; color: #9ca3af; text-decoration: line-through; }
+
+    .ticket-img { width: 100%; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 16px; }
+
+    /* Footer vé */
+    .ticket-footer {
+      border-top: 1px solid #f0fdf4;
+      padding: 14px 28px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-back {
+      background: #15803d;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .btn-edit {
+      background: #f0fdf4;
+      color: #15803d;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid #bbf7d0;
+    }
+    .btn-del {
+      background: #fff1f2;
+      color: #b91c1c;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticket">
+
+    <!-- Header -->
+    <div class="ticket-header">
+      <div class="label">Vé sự kiện</div>
+      <div class="event-name"><%= item.eventName %></div>
+      <div class="meta">
+        <span class="chip"><%= item.status === 'Upcoming' ? 'Sắp diễn ra' : item.status === 'Sold' ? 'Đã bán' : 'Đã huỷ' %></span>
+        <span class="chip"><%= item.label %></span>
+      </div>
+    </div>
+
+    <!-- Đường cắt -->
+    <div class="tear"></div>
+
+    <!-- Body -->
+    <div class="ticket-body">
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="lbl">Người giữ vé</div>
+          <div class="val"><%= item.holderName %></div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Loại vé</div>
+          <div class="val"><%= item.label %></div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Giá gốc</div>
+          <div class="val"><%= Number(item.totalAmount).toLocaleString('vi-VN') %>₫</div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Trạng thái</div>
+          <div class="val"><%= item.status === 'Upcoming' ? 'Sắp diễn ra' : item.status === 'Sold' ? 'Đã bán' : 'Đã huỷ' %></div>
+        </div>
+      </div>
+
+      <div class="price-row">
+        <div>
+          <div class="lbl">Thành tiền</div>
+          <div class="original"><%= Number(item.totalAmount).toLocaleString('vi-VN') %>₫</div>
+        </div>
+        <div class="val"><%= Number(item.finalAmount).toLocaleString('vi-VN') %>₫</div>
+      </div>
+
+      <% if (item.imageUrl) { %>
+        <img src="<%= item.imageUrl %>" alt="Ảnh vé" class="ticket-img" />
+      <% } %>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="ticket-footer">
+      <a href="/" class="btn-back">← Quay về</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
