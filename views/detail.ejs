@@ -26,9 +26,9 @@
     .ticket-header .event-name { font-size: 22px; font-weight: 800; margin: 4px 0 12px; }
     .ticket-header .meta { display: flex; gap: 10px; flex-wrap: wrap; }
     .chip {
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.35);
+     
       padding: 3px 12px;
+      border: 1px solid ;
       border-radius: 99px;
       font-size: 12px;
       font-weight: 600;
@@ -36,7 +36,7 @@
 
     /* Đường cắt vé */
     .tear {
-      border-top: 2px dashed #bbf7d0;
+      border-top: 2px dashed #e5e7eb;
       margin: 0 20px;
     }
 
@@ -61,11 +61,11 @@
     .price-row .val { font-size: 20px; font-weight: 800; color: #15803d; }
     .price-row .original { font-size: 13px; color: #9ca3af; text-decoration: line-through; }
 
-    .ticket-img { width: 100%; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 16px; }
+    .ticket-img { width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 16px; }
 
     /* Footer vé */
     .ticket-footer {
-      border-top: 1px solid #f0fdf4;
+      border-top: 1px solid #e5e7eb;
       padding: 14px 28px;
       display: flex;
       gap: 10px;
@@ -139,12 +139,9 @@
         </div>
       </div>
 
-      <div class="price-row">
-        <div>
-          <div class="lbl">Thành tiền</div>
-          <div class="original"><%= Number(item.totalAmount).toLocaleString('vi-VN') %>₫</div>
-        </div>
-        <div class="val"><%= Number(item.finalAmount).toLocaleString('vi-VN') %>₫</div>
+      <div class="info-item" style="grid-column: span 2;">
+        <div class="lbl">Giá sau giảm</div>
+        <div class="val" style="font-size:18px;"><%= Number(item.finalAmount).toLocaleString('vi-VN') %>₫</div>
       </div>
 
       <% if (item.imageUrl) { %>
